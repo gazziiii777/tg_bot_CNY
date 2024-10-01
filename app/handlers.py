@@ -7,6 +7,7 @@ from aiogram.fsm.context import FSMContext
 import app.keyboards as kb
 import config
 from databases import databases_functions
+import app.text_messages as text
 
 router = Router()
 
@@ -71,12 +72,15 @@ async def exchange_cny(message: Message):
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    await message.answer(f"Привет", reply_markup=kb.main)
+    await message.answer(text.message, reply_markup=kb.main)
 
 
-@router.message(Command('promocode'))
+@router.message(Command('promo'))
 async def cmd_promocode(message: Message):
-    await message.answer("Промо", reply_markup=kb.main)
+    promo = databases_functions.get_promo_user(message.from_user.id)
+    await message.answer(
+        f"{f'У Вас Применен промокод {promo[0]} на скику {promo[1]}' if promo is not None else 'ВВедите промокод'}",
+        reply_markup=kb.main)
 
 
 @router.message(F.text == 'Обмен ₽ - ¥')
