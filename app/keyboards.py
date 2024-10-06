@@ -17,6 +17,13 @@ main = ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text='Справка'), KeyboardButton(text='Отзывы')],
 ], resize_keyboard=True, input_field_placeholder="Можно текст")
 
-main_group = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text = 'Обменять ₽ - ¥', url = 'https://t.me/stefanswe1')]
+change_choice = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text='Ввести сумму в рублях', callback_data='change_rub')],
+    [InlineKeyboardButton(text='Ввести сумму в юанях', callback_data='change_cny')],
 ])
+
+approve_change = ReplyKeyboardMarkup(keyboard=[
+    [KeyboardButton(text='Подтвердить ✅')],
+    [KeyboardButton(text='Отмена'), KeyboardButton(text='Отзывы')],
+], resize_keyboard=True, input_field_placeholder="Можно текст")
+
